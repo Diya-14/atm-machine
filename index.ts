@@ -19,23 +19,46 @@ if (pinAnswer.pin === myPin) {
             }
         ]
     );
-    console.log(operatIons);
     if(operatIons.operation === "withdraw"){
-        let amountAns = await inquirer.prompt([
+        let withdrawOption = await inquirer.prompt([
             {
-                name:"amount",
-                message:"enter your amount",
-                type:"number",
-
+                name:"withdrawAmount",
+                message:"Select withdraw1 amount or choose 'fast cash' option",
+                type:"list",
+                choices:["$1000", "$20000", "$2000", "$5000", "fast cash"]
             }
         ]);
-       myBalance -= amountAns.amount;
-       console.log("ypur reamining balance is:" +myBalance)
+        let amountToWithdraw =0;
+        switch(withdrawOption.withdraw1Amount){
+            case "$1000":
+                amountToWithdraw=1000;
+                break;
+                case "$20000":
+                    amountToWithdraw=10000;
+                    break;
+                    case "$2000":
+                        amountToWithdraw=2000;
+                        break;
+                        case "$5000":
+                            amountToWithdraw=5000;
+                            break;
+                            case "fast cash":
+                                amountToWithdraw =[1000,10000,2000,5000][Math.floor(Math.random()*4)];
+                                break;
+                                default:
+                                    console.log("Invalid option");
+                                    "return"
+        }
+        if(amountToWithdraw > myBalance){
+            console.log(`insufficient funds. your balance is ${myBalance}`);
+        }else{
+            myBalance -= amountToWithdraw;
+            console.log(`your reamaining balance is: ${myBalance}`);
+    }
+      }else if (operatIons.operation === "check balance"){
 
-    } else if(operatIons.operation === "check balance")
-{
-    console.log("your balance is:"+ myBalance)
-}
-}else {
+        console.log(`your current balance is: ${myBalance}`);
+      }
+} else {
     console.log("incorrect pin code!!!");
 }
