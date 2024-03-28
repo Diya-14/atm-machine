@@ -1,36 +1,36 @@
 import inquirer from "inquirer";
-let myBalance = 10000; //Dollar
+let myBalance = 10000; // Dollar
 let myPin = 1407;
 let pinAnswer = await inquirer.prompt({
     name: "pin",
-    message: "enter yourpin",
+    message: "Enter your pin",
     type: "number",
 });
 if (pinAnswer.pin === myPin) {
     console.log("Correct pin code!!!");
-    let operatIons = await inquirer.prompt([
+    let operations = await inquirer.prompt([
         {
             name: "operation",
-            message: "please select optiom",
+            message: "Please select an option",
             type: "list",
             choices: ["withdraw", "check balance"]
         }
     ]);
-    if (operatIons.operation === "withdraw") {
+    if (operations.operation === "withdraw") {
         let withdrawOption = await inquirer.prompt([
             {
-                name: "withdrawAmount",
-                message: "Select withdraw1 amount or choose 'fast cash' option",
+                name: "withdrawalAmount",
+                message: "Select withdrawal amount or choose 'fast cash' option",
                 type: "list",
-                choices: ["$1000", "$20000", "$2000", "$5000", "fast cash"]
+                choices: ["$1000", "$10000", "$2000", "$5000", "Fast cash"]
             }
         ]);
         let amountToWithdraw = 0;
-        switch (withdrawOption.withdraw1Amount) {
+        switch (withdrawOption.withdrawalAmount) {
             case "$1000":
                 amountToWithdraw = 1000;
                 break;
-            case "$20000":
+            case "$10000":
                 amountToWithdraw = 10000;
                 break;
             case "$2000":
@@ -39,7 +39,9 @@ if (pinAnswer.pin === myPin) {
             case "$5000":
                 amountToWithdraw = 5000;
                 break;
-            case "fast cash":
+            case "Fast cash":
+                // Define your own logic for fast cash withdrawal
+                // For example, choose one of the predefined amounts randomly
                 amountToWithdraw = [1000, 10000, 2000, 5000][Math.floor(Math.random() * 4)];
                 break;
             default:
@@ -47,17 +49,17 @@ if (pinAnswer.pin === myPin) {
                 "return";
         }
         if (amountToWithdraw > myBalance) {
-            console.log(`insufficient funds. your balance is ${myBalance}`);
+            console.log(`Insufficient funds. Your balance is ${myBalance}`);
         }
         else {
             myBalance -= amountToWithdraw;
-            console.log(`your reamaining balance is: ${myBalance}`);
+            console.log(`Your remaining balance is: ${myBalance}`);
         }
     }
-    else if (operatIons.operation === "check balance") {
-        console.log(`your current balance is: ${myBalance}`);
+    else if (operations.operation === "check balance") {
+        console.log(`Your current balance is: ${myBalance}`);
     }
 }
 else {
-    console.log("incorrect pin code!!!");
+    console.log("Incorrect pin code!!!");
 }
