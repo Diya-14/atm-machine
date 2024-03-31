@@ -1,9 +1,13 @@
 {
-  "name": "atm-machine",
-  "version": "2.0.0",
+  "name": "@diya.14/atm-machine",
+  "version": "3.0.0",
   "description": "",
   "main": "index.js",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
